@@ -6,9 +6,9 @@ import zipfile
 import shutil
 
 output_dir = './Shapes'
-os.makedirs(output_dir + output_dir, exist_ok=True)
+os.makedirs(output_dir, exist_ok=True)
 
-tmp_dir = 'tmp'
+tmp_dir = './tmp'
 os.makedirs(tmp_dir, exist_ok=True)
 
 
@@ -36,7 +36,9 @@ def extract_shapes(tableauworkbook):
         png_bytes = base64.b64decode(shape_data[1])
         directory = os.path.dirname(shape_filename)
 
-        with open(f'{output_dir}{shape_filename}', 'wb') as shape_file:
+        os.makedirs(output_dir + "/" + directory, exist_ok=True)
+
+        with open(f'{output_dir}/{shape_filename}', 'wb') as shape_file:
             shape_file.write(png_bytes)
 
     # Delete the tmp directory
